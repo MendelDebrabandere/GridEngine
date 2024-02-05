@@ -15,10 +15,10 @@ permissions:
 
 jobs:
  build:
-    runs-on: windows-latest
+    runs-on: windows-latest 
     strategy:
       matrix:
-        BUILD_CONFIGURATION: [Release, Debug]
+        BUILD_CONFIGURATION: [Release, Debug] 
         BUILD_PLATFORM: [x64, x86]
     steps:
     - uses: actions/checkout@v3
@@ -26,9 +26,10 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.1.3
 
-    - name: Restore NuGet packages
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+    # No need to check NuGet packages in this project (uncomment if needed)
+#    - name: Restore NuGet packages
+#      working-directory: ${{env.GITHUB_WORKSPACE}}
+#      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
