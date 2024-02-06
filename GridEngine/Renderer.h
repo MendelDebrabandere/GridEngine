@@ -38,6 +38,14 @@ namespace grid
 		std::vector<Mesh*> m_MeshPtrs{};
 		Camera* m_pCamera{ nullptr };
 
+		ID3D11SamplerState* m_pSamplerState{ nullptr };
+		ID3D11Device* m_pDevice{ nullptr };
+		ID3D11DeviceContext* m_pDeviceContext{ nullptr };
+		IDXGISwapChain* m_pSwapChain{ nullptr };
+		ID3D11Texture2D* m_pDepthStencilBuffer{ nullptr };
+		ID3D11DepthStencilView* m_pDepthStencilView{ nullptr };
+		ID3D11RenderTargetView* m_pRenderTargetView{ nullptr };
+		ID3D11Resource* m_pRenderTargetBuffer{ nullptr };
 
 
 		//DIRECTX
@@ -52,6 +60,8 @@ namespace grid
 		};
 
 		FilteringMethod m_FilteringMethod{ 0 };
+
+		void LoadSampleState(const D3D11_FILTER& filter, ID3D11Device* device);
 
 	};
 }

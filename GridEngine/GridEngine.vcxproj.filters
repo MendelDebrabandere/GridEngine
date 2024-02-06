@@ -4,11 +4,29 @@
     <Filter Include="Grid">
       <UniqueIdentifier>{fa5d0ea1-cb9a-4c0b-a463-6e8d16e7f288}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{0b91076b-2968-4c71-bb5d-93452c3b46c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Misc">
       <UniqueIdentifier>{4aa8a7ac-6ff0-4498-b637-cd2afcf4e83a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{cd8a9440-6e4a-40cf-8ad8-e523d8780907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Renderer">
+      <UniqueIdentifier>{0b91076b-2968-4c71-bb5d-93452c3b46c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera">
+      <UniqueIdentifier>{bcc595cb-1145-4706-9f42-6d1cf717f54d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{dc764d40-185f-4cac-a97a-208be75cfb78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Mesh">
+      <UniqueIdentifier>{25e9d10f-7185-4daf-bc60-6704bd9f4f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Effects">
+      <UniqueIdentifier>{cc4482a6-57d8-4208-9b4c-1075e7252dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Texture">
+      <UniqueIdentifier>{018c033a-ac6a-4526-b6cb-7fd5cec0be87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -16,7 +34,7 @@
       <Filter>Grid</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>Rendering\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Misc</Filter>
@@ -24,19 +42,91 @@
     <ClCompile Include="pch.cpp">
       <Filter>Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Rendering\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Rendering\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectShaded.cpp">
+      <Filter>Rendering\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTransparent.cpp">
+      <Filter>Rendering\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Rendering\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h">
       <Filter>Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Misc</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Rendering\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Rendering\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelpers.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorRGB.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Rendering\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectShaded.h">
+      <Filter>Rendering\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectTransparent.h">
+      <Filter>Rendering\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Rendering\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Rendering\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,10 +12,10 @@
 #include "SDL_image.h"
 
 // DirectX Headers
-//#include <dxgi.h>
-//#include <d3d11.h>
-//#include <d3dcompiler.h>
-//#include <d3dx11effect.h>
+#include <dxgi.h>
+#include "d3d11.h"
+#include <d3dcompiler.h>
+#include <d3dx11effect.h>
 
 // Framework Headers
 #include "Timer.h"
