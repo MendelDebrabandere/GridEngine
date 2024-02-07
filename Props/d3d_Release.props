@@ -9,7 +9,7 @@
 	</ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\DirectX11\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-	  <AdditionalDependencies>dxgi.lib;d3d11.lib;d3dcompiler.lib;dx11effects.lib;%(AdditionalDependencies)</AdditionalDependencies>
+	  <AdditionalDependencies>d3dcompiler.lib;dx11effects.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup />
