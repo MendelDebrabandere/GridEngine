@@ -28,6 +28,12 @@
     <Filter Include="Rendering\Texture">
       <UniqueIdentifier>{018c033a-ac6a-4526-b6cb-7fd5cec0be87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Singleton">
+      <UniqueIdentifier>{c366616a-11e9-40a8-9219-0a3f72b246d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{6d98adcb-6b9e-4683-a1ed-0a1f68381e00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Grid.cpp">
@@ -69,8 +75,11 @@
     <ClCompile Include="EffectTransparent.cpp">
       <Filter>Rendering\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Rendering\Texture</Filter>
+      <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,11 +131,17 @@
     <ClInclude Include="EffectTransparent.h">
       <Filter>Rendering\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Rendering\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Rendering\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

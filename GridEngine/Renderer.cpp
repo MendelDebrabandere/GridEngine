@@ -6,6 +6,7 @@
 #include "EffectTransparent.h"
 #include "Utils.h"
 #include "Texture.h"
+#include "ResourceManager.h"
 
 namespace grid {
 
@@ -136,22 +137,22 @@ namespace grid {
 		EffectShaded* vehicleEffect{ new EffectShaded{ m_pDevice, L"Resources/PosCol3D.fx" } };
 
 		//Load textures
-		Texture* pDiffuse{ Texture::LoadFromFile("Resources/vehicle_diffuse.png", m_pDevice) };
+		Texture* pDiffuse{ ResourceManager::GetInstance().LoadTexture("vehicle_diffuse.png", m_pDevice).get()};
 		vehicleEffect->SetDiffuseMap(pDiffuse);
 
-		Texture* pNormal{ Texture::LoadFromFile("Resources/vehicle_normal.png", m_pDevice) };
+		Texture* pNormal{ ResourceManager::GetInstance().LoadTexture("vehicle_normal.png", m_pDevice).get()};
 		vehicleEffect->SetNormalMap(pNormal);
 
-		Texture* pSpecular{ Texture::LoadFromFile("Resources/vehicle_specular.png", m_pDevice) };
+		Texture* pSpecular{ ResourceManager::GetInstance().LoadTexture("vehicle_specular.png", m_pDevice).get()};
 		vehicleEffect->SetSpecularMap(pSpecular);
 
-		Texture* pGlossiness{ Texture::LoadFromFile("Resources/vehicle_gloss.png", m_pDevice) };
+		Texture* pGlossiness{ ResourceManager::GetInstance().LoadTexture("vehicle_gloss.png", m_pDevice).get()};
 		vehicleEffect->SetGlossinessMap(pGlossiness);
 
 		//The Set...Map function autiomatically deletes the texture so no need to delete them here
 
 		//Create vehicle
-		Mesh* pVehicle{ new Mesh{ m_pDevice, "Resources/vehicle.obj", vehicleEffect} };
+		Mesh* pVehicle{ ResourceManager::GetInstance().LoadMesh( m_pDevice, "vehicle.obj", vehicleEffect).get() };
 		m_MeshPtrs.push_back(pVehicle);
 
 
@@ -160,7 +161,7 @@ namespace grid {
 		EffectTransparent* fireEffect{ new EffectTransparent{ m_pDevice, L"Resources/PartialCoverage.fx" } };
 
 		//Load textures
-		Texture* pFireDiffuse{ Texture::LoadFromFile("Resources/fireFX_diffuse.png", m_pDevice) };
+		Texture* pFireDiffuse{ ResourceManager::GetInstance().LoadTexture("fireFX_diffuse.png", m_pDevice).get()};
 		fireEffect->SetDiffuseMap(pFireDiffuse);
 
 		//The Set...Map function autiomatically deletes the texture so no need to delete them here

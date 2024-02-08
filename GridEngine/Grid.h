@@ -1,3 +1,5 @@
+#pragma once
+#include <string>
 
 struct SDL_Window;
 
@@ -7,7 +9,7 @@ namespace grid
 	class Grid final
 	{
 	public:
-		Grid() = default;
+		Grid(const std::string& dataPath);
 		~Grid() = default;
 
 		void Run();

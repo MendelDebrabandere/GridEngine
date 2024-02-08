@@ -9,7 +9,7 @@
 #include "Grid.h"
 
 int main(int, char* []) {
-	grid::Grid engine{};
+	grid::Grid engine{ std::string("../Resources/") };
 	engine.Run();
 	return 0;
 }

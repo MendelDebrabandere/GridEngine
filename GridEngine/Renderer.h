@@ -1,4 +1,5 @@
 #pragma once
+#include "Singleton.h"
 
 struct SDL_Window;
 struct SDL_Surface;
@@ -9,7 +10,7 @@ namespace grid
 	class Mesh;
 	class Camera;
 
-	class Renderer final
+	class Renderer final : public Singleton<Renderer>
 	{
 	public:
 		Renderer(SDL_Window* pWindow);
@@ -24,6 +25,7 @@ namespace grid
 		void Render() const;
 		void ToggleRotation();
 		void ToggleFilteringMethod();
+
 
 	private:
 		void InitMeshes();

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Grid.h"
-#include"Renderer.h"
-
+#include "Renderer.h"
+#include "ResourceManager.h"
 
 using namespace grid;
 
@@ -11,6 +11,11 @@ void Grid::ShutDown(SDL_Window* pWindow)
 	SDL_Quit();
 }
 
+
+Grid::Grid(const std::string& dataPath)
+{
+	ResourceManager::GetInstance().Init(dataPath);
+}
 
 void Grid::Run()
 {

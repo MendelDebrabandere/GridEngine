@@ -20,3 +20,5 @@
 // Framework Headers
 #include "Timer.h"
 #include "Math.h"
+
+#include "Singleton.h"
