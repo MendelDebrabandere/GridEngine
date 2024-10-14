@@ -12,11 +12,11 @@ find_package(glfw3 REQUIRED)
 
 
 
-add_executable(GridEngine main.cpp
-        Renderer/GEWindow.cpp
-        Renderer/GEWindow.h
-        FirstApp.cpp
-        FirstApp.h)
+add_executable(GridEngine GridEngine/main.cpp
+        GridEngine/Renderer/GEWindow.cpp
+        GridEngine/Renderer/GEWindow.h
+        GridEngine/FirstApp.cpp
+        GridEngine/FirstApp.h)
 
 # Link the Vulkan and GLFW libraries, along with other dependencies
 target_link_libraries(GridEngine PRIVATE Vulkan::Vulkan glfw dl pthread X11 Xxf86vm Xrandr Xi)
