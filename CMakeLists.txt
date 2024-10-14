@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.29)
+project(GridEngine)
+
+# Set the C++ standard and compiler flags
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+
+# Find Vulkan and GLFW packages
+find_package(Vulkan REQUIRED)
+find_package(glfw3 REQUIRED)
+
+
+
+add_executable(GridEngine main.cpp
+        Renderer/GEWindow.cpp
+        Renderer/GEWindow.h
+        FirstApp.cpp
+        FirstApp.h)
+
+# Link the Vulkan and GLFW libraries, along with other dependencies
+target_link_libraries(GridEngine PRIVATE Vulkan::Vulkan glfw dl pthread X11 Xxf86vm Xrandr Xi)
