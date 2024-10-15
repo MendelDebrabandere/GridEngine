@@ -4,6 +4,8 @@
 
 #include "GEWindow.h"
 
+#include <stdexcept>
+
 namespace GE {
 
 GEWindow::GEWindow(int w, int h, const std::string& name)
@@ -27,6 +29,11 @@ void GEWindow::initWindow() {
     window = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 }
 
+void GEWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface) {
+    if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create window surface!");
+    }
 
+}
 
 } // GE

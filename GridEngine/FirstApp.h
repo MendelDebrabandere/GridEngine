@@ -7,6 +7,7 @@
 
 #include "Renderer/GEWindow.h"
 #include "Renderer/GEPipeline.h"
+#include "Renderer/GEDevice.h"
 
 namespace GE {
 
@@ -22,7 +23,8 @@ public:
 private:
 
     GEWindow ge_window{WIDTH, HEIGHT, "Hello Vulkan!"};
-    GEPipeline ge_pipeline{"/GridEngine/Shaders/simple_shader.vert.spv", "/GridEngine/Shaders/simple_shader.frag.spv"};
+    GEDevice ge_device{ge_window};
+    GEPipeline ge_pipeline{ge_device, "/GridEngine/Shaders/simple_shader.vert.spv", "/GridEngine/Shaders/simple_shader.frag.spv", GEPipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
 
 };
 

@@ -20,6 +20,7 @@ add_executable(GridEngine GridEngine/main.cpp
         GridEngine/FirstApp.cpp
         GridEngine/Renderer/GEPipeline.cpp
         GridEngine/Renderer/GEPipeline.h
+        GridEngine/Renderer/GEDevice.cpp
 )
 
 # Link the Vulkan and GLFW libraries, along with other dependencies
