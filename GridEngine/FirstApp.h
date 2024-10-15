@@ -22,7 +22,7 @@ public:
 private:
 
     GEWindow ge_window{WIDTH, HEIGHT, "Hello Vulkan!"};
-    GEPipeline ge_pipeline{"GridEngine/Shaders/simple_shader.vert.spv", "GridEngine/Shaders/simple_shader.frag.spv"};
+    GEPipeline ge_pipeline{"/GridEngine/Shaders/simple_shader.vert.spv", "/GridEngine/Shaders/simple_shader.frag.spv"};
 
 };
 

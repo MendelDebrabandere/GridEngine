@@ -15,7 +15,7 @@ namespace GE {
 
 	std::vector<char> GEPipeline::readFile(const std::string& filepath) {
 
-		std::ifstream file(filepath, std::ios::ate | std::ios::binary);
+		std::ifstream file(std::string(PROJECT_ROOT) + filepath, std::ios::ate | std::ios::binary);
 
 		if (!file.is_open()) {
 			throw std::runtime_error("Failed to open file: " + filepath);

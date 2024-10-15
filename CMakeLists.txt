@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 find_package(Vulkan REQUIRED)
 find_package(glfw3 REQUIRED)
 
-
+add_compile_definitions(PROJECT_ROOT="${PROJECT_SOURCE_DIR}")
 
 add_executable(GridEngine GridEngine/main.cpp
         GridEngine/Renderer/GEWindow.cpp
