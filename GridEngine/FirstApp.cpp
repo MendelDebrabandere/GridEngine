@@ -54,13 +54,13 @@ void FirstApp::createSerpiskiTriangle(std::vector<GEModel::Vertex> &vertices, in
 
 void FirstApp::loadModels()
 {
-	// std::vector<GEModel::Vertex> vertices = {
-	// 	{{0.0f,-0.5f}},
-	// 	{{0.5f, 0.5f}},
-	// 	{{-0.5f, 0.5f}}
-	// };
-	std::vector<GEModel::Vertex> vertices{};
-	createSerpiskiTriangle(vertices, 5, {-0.8f, 0.8f}, {0.8f, 0.8f}, {0.0f,-0.8f} );
+	std::vector<GEModel::Vertex> vertices = {
+		{{0.0f,-0.5f}, {1.0f, 0.0f, 0.0f}},
+		{{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+		{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+	};
+	//std::vector<GEModel::Vertex> vertices{};
+	//createSerpiskiTriangle(vertices, 5, {-0.8f, 0.8f}, {0.8f, 0.8f}, {0.0f,-0.8f} );
 
 	geModel = std::make_unique<GEModel>(geDevice, vertices);
 }
