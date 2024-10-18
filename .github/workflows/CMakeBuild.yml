@@ -92,7 +92,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake gcc g++ libvulkan-dev vulkan-utils
+          sudo apt-get install -y cmake gcc g++ libvulkan-dev
           
           # Download the Vulkan SDK signing key and add it to the system keyring
           curl -fsSL https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo tee /etc/apt/trusted.gpg.d/lunarg.asc > /dev/null
