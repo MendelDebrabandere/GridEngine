@@ -20,27 +20,27 @@ jobs:
     strategy:
       matrix:
         build_type: [Release, Debug]
-        architecture: [x64, x86]
+        architecture: [64, 32]
 
     steps:
-    # Checkout the repository
-    - uses: actions/checkout@v3
+      # Checkout the repository
+      - uses: actions/checkout@v3
 
-    # Install dependencies
-    - name: Install Dependencies
-      run: sudo apt-get install -y cmake g++
+      # Install dependencies
+      - name: Install Dependencies
+        run: sudo apt-get install -y cmake g++
 
-    # Configure CMake project
-    - name: CMake Configure
-      run: |
-        cmake -S ${{env.CMAKE_SOURCE_DIR}} -B build -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DCMAKE_C_FLAGS=-m${{matrix.architecture}} -DCMAKE_CXX_FLAGS=-m${{matrix.architecture}}
+      # Configure CMake project
+      - name: CMake Configure
+        run: |
+          cmake -S ${{env.CMAKE_SOURCE_DIR}} -B build -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DCMAKE_C_FLAGS=-m${{matrix.architecture}} -DCMAKE_CXX_FLAGS=-m${{matrix.architecture}}
 
-    # Build the project
-    - name: CMake Build
-      run: cmake --build build --config ${{matrix.build_type}}
+      # Build the project
+      - name: CMake Build
+        run: cmake --build build --config ${{matrix.build_type}}
 
-    # Optionally, run tests (if applicable)
-    - name: Run Tests
-      run: |
-        cd build
-        ctest --output-on-failure
+      # Optionally, run tests (if applicable)
+      - name: Run Tests
+        run: |
+          cd build
+          ctest --output-on-failure
