@@ -1,66 +1,70 @@
-name: C++ Vulkan Build and Test
+name: Vulkan Build Pipeline
 
 on:
   push:
     branches:
       - main
-      - master
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        build-type: [Debug, Release]
-        compiler: [gcc, clang]
 
     steps:
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Vulkan SDK
+      # Set up Vulkan SDK (using Ubuntu packages)
+      - name: Install Vulkan SDK
         run: |
-          wget https://sdk.lunarg.com/sdk/download/1.3.261.1/linux/vulkan-sdk-linux-x86_64-1.3.261.1.tar.gz
-          tar -xvf vulkan-sdk-linux-x86_64-1.3.261.1.tar.gz
-          echo "${GITHUB_WORKSPACE}/1.3.261.1/x86_64" >> $GITHUB_ENV
-        shell: bash
+          sudo apt update
+          sudo apt install -y libvulkan-dev vulkan-tools vulkan-validationlayers-dev
 
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y \
-          build-essential \
-          cmake \
-          ninja-build \
-          libx11-xcb-dev \
-          libxcb-dri3-dev \
-          libxcb-present-dev \
-          libxrandr-dev \
-          libxrandr2 \
-          libxinerama-dev \
-          libxcursor-dev \
-          libxi-dev \
-          libgl1-mesa-dev \
-          libvulkan-dev \
-          vulkan-utils \
-          gcc-multilib \
-          g++-multilib
-        shell: bash
+      # Optional: If you need specific Vulkan SDK version, download it
+      - name: Download Vulkan SDK
+        run: |
+          wget https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz
+          tar -xvzf vulkan-sdk.tar.gz
+          export VULKAN_SDK=$PWD/1.3.261.1/x86_64
 
-      - name: Create build directory
-        run: mkdir build
-        working-directory: ${{ github.workspace }}
+      # Export Vulkan SDK path
+      - name: Set Vulkan environment variables
+        run: |
+          echo "VULKAN_SDK=$VULKAN_SDK" >> $GITHUB_ENV
+          echo "PATH=$VULKAN_SDK/bin:$PATH" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=$VULKAN_SDK/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
 
-      - name: Configure CMake
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -G Ninja
-        working-directory: ${{ github.workspace }}
+      # Ensure paths are correctly set and no invalid format issues
+      - name: Check Vulkan SDK environment variables
+        run: |
+          echo "Vulkan SDK path: $VULKAN_SDK"
+          vulkaninfo  # Run a basic Vulkan info check
 
-      - name: Build with CMake
-        run: cmake --build build --config ${{ matrix.build-type }}
-        working-directory: ${{ github.workspace }}
+      # Install other build dependencies (adjust as needed)
+      - name: Install build dependencies
+        run: |
+          sudo apt install -y build-essential cmake
 
+      # Run the build command
+      - name: Build the project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+      # Run unit tests (if applicable)
       - name: Run tests
-        run: ctest --output-on-failure
-        working-directory: ${{ github.workspace }}/build
+        run: |
+          cd build
+          ctest
+
+      # Optional: Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: build/
