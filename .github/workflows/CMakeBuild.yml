@@ -17,14 +17,16 @@ jobs:
       matrix:
         build-type: [Debug, Release]
         compiler: [gcc, clang]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Vulkan SDK
         run: |
-          wget -qO- https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz | tar xz
-          echo "${GITHUB_WORKSPACE}/vulkan-sdk" >> $GITHUB_ENV
+          wget https://sdk.lunarg.com/sdk/download/1.3.261.1/linux/vulkan-sdk-linux-x86_64-1.3.261.1.tar.gz
+          tar -xvf vulkan-sdk-linux-x86_64-1.3.261.1.tar.gz
+          echo "${GITHUB_WORKSPACE}/1.3.261.1/x86_64" >> $GITHUB_ENV
         shell: bash
 
       - name: Install dependencies
