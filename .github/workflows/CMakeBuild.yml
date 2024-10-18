@@ -1,48 +1,64 @@
-name: CMake Build
+name: C++ Vulkan Build and Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - master
   pull_request:
-    branches: [ "main" ]
-
-env:
-  # Path to the CMakeLists.txt file relative to the root of the project.
-  CMAKE_SOURCE_DIR: .
-
-permissions:
-  contents: read
+    branches:
+      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        build_type: [Release, Debug]
-        architecture: [64, 32]
-
+        build-type: [Debug, Release]
+        compiler: [gcc, clang]
     steps:
-      # Checkout the repository
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # Install dependencies
-      - name: Install Dependencies
-        run: sudo apt-get install -y cmake g++
-        continue-on-error: true  # Retry or prevent the job from failing on this step
-
-
-      # Configure CMake project
-      - name: CMake Configure
+      - name: Set up Vulkan SDK
         run: |
-          cmake -S ${{env.CMAKE_SOURCE_DIR}} -B build -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DCMAKE_C_FLAGS=-m${{matrix.architecture}} -DCMAKE_CXX_FLAGS=-m${{matrix.architecture}}
+          wget -qO- https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz | tar xz
+          echo "${GITHUB_WORKSPACE}/vulkan-sdk" >> $GITHUB_ENV
+        shell: bash
 
-      # Build the project
-      - name: CMake Build
-        run: cmake --build build --config ${{matrix.build_type}}
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y \
+          build-essential \
+          cmake \
+          ninja-build \
+          libx11-xcb-dev \
+          libxcb-dri3-dev \
+          libxcb-present-dev \
+          libxrandr-dev \
+          libxrandr2 \
+          libxinerama-dev \
+          libxcursor-dev \
+          libxi-dev \
+          libgl1-mesa-dev \
+          libvulkan-dev \
+          vulkan-utils \
+          gcc-multilib \
+          g++-multilib
+        shell: bash
 
-      # Optionally, run tests (if applicable)
-      - name: Run Tests
-        run: |
-          cd build
-          ctest --output-on-failure
+      - name: Create build directory
+        run: mkdir build
+        working-directory: ${{ github.workspace }}
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -G Ninja
+        working-directory: ${{ github.workspace }}
+
+      - name: Build with CMake
+        run: cmake --build build --config ${{ matrix.build-type }}
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: ctest --output-on-failure
+        working-directory: ${{ github.workspace }}/build
