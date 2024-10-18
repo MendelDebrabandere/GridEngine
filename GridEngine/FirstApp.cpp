@@ -11,6 +11,7 @@ namespace GE {
 
 FirstApp::FirstApp()
 {
+	loadModels();
 	createPipelineLayout();
 	createPipeline();
 	createCommandBuffers();
@@ -32,6 +33,37 @@ void FirstApp::run()
 	vkDeviceWaitIdle(geDevice.device());
 }
 
+void FirstApp::createSerpiskiTriangle(std::vector<GEModel::Vertex> &vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top)
+{
+	if (depth <= 0)
+	{
+		vertices.push_back({top});
+		vertices.push_back({right});
+		vertices.push_back({left});
+	}
+	else
+	{
+		auto leftTop = 0.5f * (left + top);
+		auto rightTop = 0.5f * (right + top);
+		auto leftRight = 0.5f * (left + right);
+		createSerpiskiTriangle(vertices, depth - 1, left, leftRight, leftTop);
+		createSerpiskiTriangle(vertices, depth - 1, leftRight, right, rightTop);
+		createSerpiskiTriangle(vertices, depth - 1, leftTop, rightTop, top);
+	}
+}
+
+void FirstApp::loadModels()
+{
+	// std::vector<GEModel::Vertex> vertices = {
+	// 	{{0.0f,-0.5f}},
+	// 	{{0.5f, 0.5f}},
+	// 	{{-0.5f, 0.5f}}
+	// };
+	std::vector<GEModel::Vertex> vertices{};
+	createSerpiskiTriangle(vertices, 5, {-0.8f, 0.8f}, {0.8f, 0.8f}, {0.0f,-0.8f} );
+
+	geModel = std::make_unique<GEModel>(geDevice, vertices);
+}
 
 void FirstApp::createPipelineLayout()
 {
@@ -102,7 +134,8 @@ void FirstApp::createCommandBuffers()
 		vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 		gePipeline->bind(commandBuffers[i]);
-		vkCmdDraw(commandBuffers[i], 3, 1, 0, 0);
+		geModel->bind(commandBuffers[i]);
+		geModel->draw(commandBuffers[i]);
 
 		vkCmdEndRenderPass(commandBuffers[i]);
 		if (vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS)

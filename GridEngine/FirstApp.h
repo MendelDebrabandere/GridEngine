@@ -9,6 +9,7 @@
 #include "Renderer/GEPipeline.h"
 #include "Renderer/GEDevice.h"
 #include "Renderer/GESwapChain.h"
+#include "Renderer/GEModel.h"
 
 #include <memory>
 #include <vector>
@@ -33,6 +34,9 @@ public:
     void run();
 
 private:
+    void createSerpiskiTriangle(std::vector<GEModel::Vertex> &vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top);
+
+    void loadModels();
     void createPipelineLayout();
     void createPipeline();
     void createCommandBuffers();
@@ -44,6 +48,7 @@ private:
     std::unique_ptr<GEPipeline> gePipeline;
     VkPipelineLayout pipelineLayout;
     std::vector<VkCommandBuffer> commandBuffers;
+    std::unique_ptr<GEModel> geModel;
 };
 
 } // GE

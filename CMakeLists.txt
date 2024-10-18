@@ -24,6 +24,8 @@ add_executable(GridEngine GridEngine/main.cpp
         GridEngine/Renderer/GEDevice.h
         GridEngine/Renderer/GESwapChain.h
         GridEngine/Renderer/GESwapChain.cpp
+        GridEngine/Renderer/GEModel.cpp
+        GridEngine/Renderer/GEModel.h
 )
 
 add_custom_target(compile_shaders ALL
