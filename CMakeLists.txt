@@ -22,6 +22,14 @@ add_executable(GridEngine GridEngine/main.cpp
         GridEngine/Renderer/GEPipeline.h
         GridEngine/Renderer/GEDevice.cpp
         GridEngine/Renderer/GEDevice.h
+        GridEngine/Renderer/GESwapChain.h
+        GridEngine/Renderer/GESwapChain.cpp
+)
+
+add_custom_target(compile_shaders ALL
+        COMMAND /bin/bash ${PROJECT_SOURCE_DIR}/GridEngine/Shaders/compile.sh
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/GridEngine/Shaders
+        COMMENT "Compiling shaders"
 )
 
 # Link the Vulkan and GLFW libraries, along with other dependencies

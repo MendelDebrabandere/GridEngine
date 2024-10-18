@@ -8,6 +8,10 @@
 #include "Renderer/GEWindow.h"
 #include "Renderer/GEPipeline.h"
 #include "Renderer/GEDevice.h"
+#include "Renderer/GESwapChain.h"
+
+#include <memory>
+#include <vector>
 
 namespace GE {
 
@@ -18,14 +22,28 @@ public:
     static constexpr int WIDTH = 800;
     static constexpr int HEIGHT = 600;
 
+    FirstApp();
+    ~FirstApp();
+
+    FirstApp(const FirstApp&) = delete;
+    FirstApp& operator=(const FirstApp&) = delete;
+    FirstApp(FirstApp&&) = delete;
+    FirstApp& operator=(FirstApp&&) = delete;
+
     void run();
 
 private:
+    void createPipelineLayout();
+    void createPipeline();
+    void createCommandBuffers();
+    void drawFrame();
 
-    GEWindow ge_window{WIDTH, HEIGHT, "Hello Vulkan!"};
-    GEDevice ge_device{ge_window};
-    GEPipeline ge_pipeline{ge_device, "/GridEngine/Shaders/simple_shader.vert.spv", "/GridEngine/Shaders/simple_shader.frag.spv", GEPipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
-
+    GEWindow geWindow{WIDTH, HEIGHT, "GridEngine"};
+    GEDevice geDevice{geWindow};
+    GESwapChain geSwapChain{geDevice, geWindow.getExtent()};
+    std::unique_ptr<GEPipeline> gePipeline;
+    VkPipelineLayout pipelineLayout;
+    std::vector<VkCommandBuffer> commandBuffers;
 };
 
 } // GE

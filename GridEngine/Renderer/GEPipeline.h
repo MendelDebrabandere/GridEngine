@@ -14,7 +14,6 @@ namespace GE {
 struct PipelineConfigInfo {
 	VkViewport viewport;
 	VkRect2D scissor;
-	VkPipelineViewportStateCreateInfo viewportInfo;
 	VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 	VkPipelineRasterizationStateCreateInfo rasterizationInfo;
 	VkPipelineMultisampleStateCreateInfo multisampleInfo;
@@ -35,6 +34,8 @@ public:
 	GEPipeline& operator=(const GEPipeline&) = delete;
 	GEPipeline(GEPipeline&&) = delete;
 	GEPipeline& operator=(GEPipeline&&) = delete;
+
+	void bind(VkCommandBuffer commandBuffer);
 
 	static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
 
