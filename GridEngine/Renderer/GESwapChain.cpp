@@ -13,6 +13,18 @@ namespace GE {
 
 GESwapChain::GESwapChain(GEDevice &deviceRef, VkExtent2D extent)
     : device{deviceRef}, windowExtent{extent} {
+  init();
+}
+
+GESwapChain::GESwapChain(GEDevice &deviceRef, VkExtent2D extent, std::shared_ptr<GESwapChain> previous)
+    : device{deviceRef}, windowExtent{extent}, oldSwapChain{previous} {
+  init();
+
+  //clean up old swap chain since it's no longer needed
+  oldSwapChain = nullptr;
+}
+
+void GESwapChain::init() {
   createSwapChain();
   createImageViews();
   createRenderPass();
@@ -162,7 +174,7 @@ void GESwapChain::createSwapChain() {
   createInfo.presentMode = presentMode;
   createInfo.clipped = VK_TRUE;
 
-  createInfo.oldSwapchain = VK_NULL_HANDLE;
+  createInfo.oldSwapchain = oldSwapChain == nullptr ? VK_NULL_HANDLE : oldSwapChain->swapChain;
 
   if (vkCreateSwapchainKHR(device.device(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
     throw std::runtime_error("failed to create swap chain!");
@@ -387,7 +399,7 @@ VkPresentModeKHR GESwapChain::chooseSwapPresentMode(
   //   }
   // }
 
-  std::cout << "Present mode: V-Sync" << std::endl;
+  //std::cout << "Present mode: V-Sync" << std::endl;
   return VK_PRESENT_MODE_FIFO_KHR;
 }
 

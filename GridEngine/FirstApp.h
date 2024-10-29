@@ -34,17 +34,20 @@ public:
     void run();
 
 private:
-    void createSerpiskiTriangle(std::vector<GEModel::Vertex> &vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top);
+    void createSerpinskiTriangle(std::vector<GEModel::Vertex> &vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top);
 
     void loadModels();
     void createPipelineLayout();
     void createPipeline();
     void createCommandBuffers();
+    void freeCommandBuffers();
     void drawFrame();
+    void recreateSwapChain();
+    void recordCommandBuffer(int imageIndex);
 
     GEWindow geWindow{WIDTH, HEIGHT, "GridEngine"};
     GEDevice geDevice{geWindow};
-    GESwapChain geSwapChain{geDevice, geWindow.getExtent()};
+    std::unique_ptr<GESwapChain> geSwapChain;
     std::unique_ptr<GEPipeline> gePipeline;
     VkPipelineLayout pipelineLayout;
     std::vector<VkCommandBuffer> commandBuffers;

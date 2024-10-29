@@ -13,7 +13,7 @@
 namespace GE {
 
 class GEWindow {
-    public:
+public:
 	GEWindow(int w, int h, const std::string& name);
 	~GEWindow();
 
@@ -25,17 +25,21 @@ class GEWindow {
 
 	inline bool shouldClose() {return glfwWindowShouldClose(window);}
 	VkExtent2D getExtent() const {return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};}
+	inline bool wasWindowResized() const { return framebufferResized; }
+	void resetWindowResizedFlag() { framebufferResized = false; }
 
 	void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 
-    private:
-      void initWindow();
+private:
+	static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
+    void initWindow();
 
-      const int width;
-      const int height;
+    int width;
+    int height;
+	bool framebufferResized = false;
 
-      std::string windowName;
-      GLFWwindow* window;
+    std::string windowName;
+    GLFWwindow* window;
 
 };
 

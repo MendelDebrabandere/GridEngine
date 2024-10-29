@@ -120,8 +120,17 @@ void GEDevice::pickPhysicalDevice() {
 
   for (const auto &device : devices) {
     if (isDeviceSuitable(device)) {
-      physicalDevice = device;
-      break;
+      //getdevice name
+      VkPhysicalDeviceProperties pProperties{};
+      vkGetPhysicalDeviceProperties(device, &pProperties);
+      std::string deviceName(pProperties.deviceName);
+      //std::cout << "Optional device : " << deviceName << std::endl;
+      if (deviceName.find ("NVIDIA") != std::string::npos)
+      {
+        //std::cout << "Selected NVIDIA device" << std::endl;
+        physicalDevice = device;
+        break;
+       }
     }
   }
 
